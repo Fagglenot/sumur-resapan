@@ -102,7 +102,7 @@ def main():
     
     print()
     print("="*50)
-    print("      Hasil perhitungan sumur resapan")
+    print("         Hasil perhitungan sumur resapan")
     print("="*50)
     print(f"Luas Total Lahan            : {luas_total:.1f} m2")     # :.1f digunakan untuk membulatkan nilai menjadi 1 angka di belakang koma 
     print(f"Koefisien Limpasan Gabungan : {c_gabungan:.3f}")        # Selain luas dan tinggi angka koma lebih spesifik

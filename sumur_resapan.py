@@ -74,28 +74,34 @@ def hitung(areas: list,durasi_jam:float,r24:float, k: float, jari: float, h_sumu
     return i, c_gabungan, luas_total, q_total,h_total, n
     
 def main():
-    durasi_jam = float(input("Masukkan durasi hujan (jam): "))
-    r24 = float(input("Masukkan curah hujan R24 (mm): "))
+    try:
+        durasi_jam = float(input("Masukkan durasi hujan (jam): "))
+        r24 = float(input("Masukkan curah hujan R24 (mm): "))
 
-    k = float(input("Masukkan permeabilitas tanah (m/detik): "))
+        k = float(input("Masukkan permeabilitas tanah (m/detik): "))
 
-    jari = float(input("Masukkan jari-jari sumur (meter): "))
-    h_sumur = float(input("Masukkan kedalaman sumur (meter): "))
+        jari = float(input("Masukkan jari-jari sumur (meter): "))
+        h_sumur = float(input("Masukkan kedalaman sumur (meter): "))
 
-    data_area = []
+        data_area = []
 
-    while True: 
-        tipe = input("Masukkan tipe lahan (atap, aspal, beton, paving, tanah, taman, kebun, atau sawah) (atau ketik 'selesai' untuk menghitung): ")
-        if tipe == 'selesai':
-            break
+        while True: 
+            tipe = input("Masukkan tipe lahan (atap, aspal, beton, paving, tanah, taman, kebun, atau sawah) (atau ketik 'selesai' untuk menghitung): ")
+            if tipe == 'selesai':
+                break
 
-        if tipe not in koef_limpasan:
-            print("Tipe lahan tidak dikenali")
-            continue
+            if tipe not in koef_limpasan:
+                print("Tipe lahan tidak dikenali")
+                continue
 
-        luas = float(input(f"Masukkan luas area untuk {tipe} (m2): "))
+            luas = float(input(f"Masukkan luas area untuk {tipe} (m2): "))
 
-        data_area.append({"tipe": tipe, "luas":luas})
+            data_area.append({"tipe": tipe, "luas":luas})
+        if len(data_area) == 0:
+            print("Tidak ada data yang diinput, silahkan coba lagi")
+    except ValueError: # Jika data yang diinput bukan angka, jangan lanjutkan fungsi main()
+        print()
+        print(f"Input harus berupa angka. Silahkan jalankan ulang program ini")
 
     #Dapatkan data intensitas, c gabungan, luas total, debit total, kedalaman air total menggunakan fungsi hitung()
     i, c_gabungan, luas_total, q_total, h_total, n = hitung(data_area, durasi_jam, r24, k, jari, h_sumur)
@@ -108,7 +114,7 @@ def main():
     print(f"Koefisien Limpasan Gabungan : {c_gabungan:.3f}")        # Selain luas dan tinggi angka koma lebih spesifik
     print(f"Intensitas Hujan            : {i:.3f} mm/jam")
     print(f"Debit Puncak                : {q_total:.3f} liter/detik")
-    print(f"Kedalaman Air Total         : {h_total:.1f} m2")
+    print(f"Kedalaman Air Total         : {h_total:.1f} m")
     print("="*50)
     print(f"Jumlah sumur resapan dibutuhkan adalah {n} buah")
 
